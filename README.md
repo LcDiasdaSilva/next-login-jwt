@@ -1,5 +1,6 @@
 # Login e Area restrita com JWT
-[View Demo]().
+
+DEMO [View Demo](https://nuxt-login-jwt.pages.dev/).
 
 user : guest@teste.com | password : 123456
 
