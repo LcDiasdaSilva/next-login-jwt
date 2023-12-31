@@ -1,0 +1,11 @@
+@mixin mq-value($value) {
+  @media (max-width: #{$value}) {
+    @content;
+  }
+}
+
+/*
+@include mq-value("600px") {
+    display: none;
+  }
+*/

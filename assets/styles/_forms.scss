@@ -1,0 +1,44 @@
+input,
+select,
+textarea,
+button {
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+}
+
+.field-default-class {
+  margin-bottom: 0rem;
+  label {
+    width: 100%;
+    font-weight: 300;
+    margin-bottom: 5px;
+  }
+
+  input,
+  select,
+  textarea {
+    border: none;
+    border: #ddd solid 1px;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background: #fff;
+    border-radius: none;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  .error {
+    font-family: "Sora";
+    color: #ef5350;
+    font-weight: 600;
+    margin-bottom: 6px;
+    height: 1rem;
+  }
+}
