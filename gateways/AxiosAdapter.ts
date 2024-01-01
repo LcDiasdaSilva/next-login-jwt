@@ -17,7 +17,6 @@ export default class AxiosAdapter {
       },
     })
 
-
     this.api.interceptors.request.use(async (request: any) => {
       if (this.token) {
         request.headers.Authorization = `Bearer ${this.token}`
@@ -25,12 +24,16 @@ export default class AxiosAdapter {
       return request
     })
 
-    this.api.interceptors.response.use((response: any) => response.data, (error: any) => {
+    this.api.interceptors.response.use(
+      (response: any) => response.data,
+      (error: any) => {
+        if (!error) return
+        if (!error.response) return navigateTo('/login')
+        axiosAlertError.alertShow(error)
+        Promise.reject(error)
+      }
 
-      if (!error) return
-      if (!error.response) return navigateTo('/login')
-      axiosAlertError.alertShow(error)
-    })
+    )
 
   }
 

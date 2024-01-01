@@ -47,19 +47,25 @@
 
 <script setup lang="ts">
 import { useLayoutStore } from "~/store/layoutStore";
+import { useLoadUserLogged } from "../composables/useLoadUserLogged";
+import { useUserStore } from "../store/userStore";
 
 const layoutStore = useLayoutStore();
 const authHttpGateway = inject("authHttpGateway") as IAuthHttp;
-
+const userStore = useUserStore();
 const token = useCookie("token");
-token.value = null
+token.value = null;
 async function submit(payload: ISignIn) {
   try {
     layoutStore.changeStateLoading(true);
     const responseToken = await signIn(payload);
     if (responseToken) token.value = responseToken;
-    layoutStore.changeStateLoading(false);
-    return navigateTo("/");
+    await nextTick();
+    useLoadUserLogged().then((user) => {
+      userStore.setUserLogged(user);
+      layoutStore.changeStateLoading(false);
+      navigateTo("/");
+    });
   } catch (error) {
     layoutStore.changeStateLoading(false);
   }
@@ -73,6 +79,6 @@ async function signIn(payload: ISignIn) {
 const img = useImage();
 useSeoMeta({
   title: "LC | LOGIN",
-  description: 'Login',
+  description: "Login",
 });
 </script>

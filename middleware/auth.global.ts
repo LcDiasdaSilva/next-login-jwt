@@ -9,7 +9,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (!isPublic && !isAuthenticated && !token) return navigateTo("/login");
 
   if (!isPublic && !isAuthenticated && token) {
-    const user = await useLoadUserLogged()
-    if (!user) return navigateTo("/login");
+    useLoadUserLogged().then((user) => {
+      userStore.setUserLogged(user);
+    })
   }
 });   

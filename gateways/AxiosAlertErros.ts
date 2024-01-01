@@ -19,18 +19,21 @@ export default class AxiosAlertErrors {
     this.type = ''
     this.defaultMessageErros = {
       400: { title: 'Erro', message: 'Parâmetros de rota não encontrados. Entre em contato com o suporte.', type: 'error' },
-      401: { title: 'Alerta', message: 'Usuário não autorizado.', type: 'warn' },
-      404: { title: 'Alerta', message: 'Rota não encontrada. Entre em contato com o suporte.', type: 'warn' },
+      401: { title: 'Aviso', message: 'Usuário não autorizado.', type: 'warn' },
+      404: { title: 'Aviso', message: 'Rota não encontrada. Entre em contato com o suporte.', type: 'warn' },
       500: { title: 'Erro', message: 'Erro no servidor. Entre em contato com o suporte.', type: 'error' }
     }
   }
 
-  alertShow(error: any) {
+  async alertShow(error: any) {
     if (error.response.data.message) this.errorMessage = error.response.data.message
     if (!this.errorMessage) this.errorMessage = this.defaultMessageErros[error.response.status]?.message
     this.title = this.defaultMessageErros[error.response.status]?.title
     this.type = this.defaultMessageErros[error.response.status]?.type
     this.alert()
+    if (error.response.status === 401) {
+      navigateTo('/login')
+    }
   }
 
   alert() {
